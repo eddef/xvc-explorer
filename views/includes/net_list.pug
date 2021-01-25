@@ -1,7 +1,7 @@
 script.
   $(document).ready(function(){
-    var ctable = $('#connections-table').dataTable( {  
-      autoWidth: true,      
+    var ctable = $('#connections-table').dataTable( {
+      autoWidth: true,
       searching: false,
       ordering: false,
       responsive: true,
@@ -18,7 +18,11 @@ script.
         if (data['country_code'].length > 1) {
           flagBlock = '&nbsp;<div class="flag-icon flag-icon-'+data['country_code'].toLowerCase()+'"></div>';
         }
+        if (data['address'] === '10.0.0.21') {
+        $("td:eq(0)", row).html('Local Node');
+        } else {
         $("td:eq(0)", row).html(data['address']);
+        }
         $("td:eq(1)", row).html(data['protocol']);
         $("td:eq(2)", row).html(data['version']);
         $("td:eq(3)", row).html(data['country']+flagBlock);

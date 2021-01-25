@@ -23,8 +23,25 @@ mongoose.connect(dbString, function(err) {
     console.log('Aborting');
     exit();
   } else {
-    request({uri: 'http://127.0.0.1:' + settings.port + '/api/getpeerinfo', json: true}, function (error, response, body) {
+      var headers = {
+          'content-type': 'text/plain;'
+       };
+     var dataString = '{"jsonrpc": "1.0", "id":"curltest", "method": "getpeerinfo"}';
+     var options = {
+        url: 'http://127.0.0.1:9195/',
+        method: 'POST',
+        headers: headers,
+        body: dataString,
+        //json: true
+     }
+    request(options, function (error, response, rawbody) {
+        //console.log(JSON.parse(rawbody));
+        const json_data = JSON.parse(rawbody);
+        const body = json_data.result;
+        //console.log(body);
+        //console.log(body.length)
       lib.syncLoop(body.length, function (loop) {
+        //console.log(body.length);
         var i = loop.iteration();
         var portSplit = body[i].addr.lastIndexOf(":");
         var port = "";

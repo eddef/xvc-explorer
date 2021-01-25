@@ -1,7 +1,7 @@
 script.
   $(document).ready(function(){
-    var ctable = $('#addnodes-table').dataTable( {  
-      autoWidth: true,      
+    var ctable = $('#addnodes-table').dataTable( {
+      autoWidth: true,
       searching: false,
       ordering: false,
       responsive: true,
@@ -12,7 +12,11 @@ script.
         dataSrc: function ( json ) {
           var rows = []
           for ( var i=0;i<json.data.length; i++ ) {
+          if (json.data[i]['address'] === '10.0.0.21'){
+          // Nothing
+          } else {
             rows.push({'nodes':'addnode='+json.data[i]['address']+':'+json.data[i]['port']});
+          }
           }
           return rows;
         }
@@ -24,8 +28,8 @@ script.
         { targets: '_all', className: 'text-left'}
       ]
     });
-    var ctable = $('#addnodes2-table').dataTable( {  
-      autoWidth: true,      
+    var ctable = $('#addnodes2-table').dataTable( {
+      autoWidth: true,
       searching: false,
       ordering: false,
       responsive: true,
@@ -36,8 +40,11 @@ script.
         dataSrc: function ( json ) {
           var rows = []
           for ( var i=0;i<json.data.length; i++ ) {
+          if (json.data[i]['address'] === '10.0.0.21'){
+          // Nothing
+          } else {
             rows.push({'nodes':'addnode '+json.data[i]['address']+':'+json.data[i]['port']+' onetry'});
-          }
+          }}
           return rows;
         }
       },
@@ -53,7 +60,7 @@ script.
   .card-body
     :markdown-it
       If you have trouble syncing your wallet, add these lines to your coin daemon .conf file and restart the wallet.
-      
+
       *Typically you can access the config file through QT-wallet menu, Tools > Open Wallet Configuration File*
   table#addnodes-table.table.table-bordered.table-striped
     thead
